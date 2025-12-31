@@ -1,104 +1,156 @@
-/* CSS Variables for Theme Management */
+/* Light theme per style guide */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
-}
+  --color-primary: #3b82f6;
+  --color-secondary: #64748b;
+  --color-success: #06b6d4;
+  --color-error: #EF4444;
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+  --color-bg: #f9fafb;
+  --color-surface: #ffffff;
+  --color-text: #111827;
+
+  --color-border: rgba(17, 24, 39, 0.12);
+  --shadow: 0 18px 45px rgba(17, 24, 39, 0.10);
+  --shadow-press: 0 8px 20px rgba(17, 24, 39, 0.12);
+
+  --radius-lg: 18px;
+  --radius-md: 14px;
+
+  --focus-ring: 0 0 0 3px rgba(59, 130, 246, 0.35);
 }
 
 .App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
   min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  background: radial-gradient(1200px 400px at 20% 0%, rgba(59, 130, 246, 0.10), transparent 60%),
+              radial-gradient(900px 380px at 90% 10%, rgba(6, 182, 212, 0.10), transparent 55%),
+              var(--color-bg);
+  color: var(--color-text);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: var(--bg-secondary);
+.CalcPage {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.CalcCard {
+  width: min(420px, 100%);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 18px;
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
-  font-size: 14px;
-  font-weight: 600;
+.CalcDisplay {
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, rgba(59, 130, 246, 0.08), rgba(6, 182, 212, 0.05));
+  border: 1px solid rgba(59, 130, 246, 0.20);
+  padding: 14px 14px 12px;
+  margin-bottom: 14px;
+}
+
+.CalcDisplay-secondary {
+  min-height: 18px;
+  font-size: 12px;
+  color: rgba(17, 24, 39, 0.65);
+  text-align: right;
+  letter-spacing: 0.01em;
+}
+
+.CalcDisplay-primary {
+  font-size: 44px;
+  line-height: 1.1;
+  font-weight: 700;
+  text-align: right;
+  word-break: break-all;
+  font-variant-numeric: tabular-nums;
+}
+
+.CalcKeypad {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.CalcButton {
+  appearance: none;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  color: var(--color-text);
+  border-radius: 14px;
+  padding: 14px 12px;
+  font-size: 18px;
+  font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  user-select: none;
+  transition: transform 120ms ease, box-shadow 120ms ease, background-color 120ms ease, border-color 120ms ease;
+  box-shadow: 0 2px 0 rgba(17, 24, 39, 0.06);
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  opacity: 0.9;
+.CalcButton:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-press);
 }
 
-.theme-toggle:active {
-  transform: translateY(0);
+.CalcButton:active {
+  transform: translateY(0px) scale(0.99);
+  box-shadow: 0 2px 0 rgba(17, 24, 39, 0.06);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.CalcButton:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring), var(--shadow-press);
+  border-color: rgba(59, 130, 246, 0.55);
+}
+
+/* Variants */
+.CalcButton--secondary {
+  background: rgba(100, 116, 139, 0.10);
+  border-color: rgba(100, 116, 139, 0.22);
+}
+
+.CalcButton--op {
+  background: rgba(59, 130, 246, 0.10);
+  border-color: rgba(59, 130, 246, 0.22);
+  color: #0b255f;
+}
+
+.CalcButton--equals {
+  background: rgba(6, 182, 212, 0.16);
+  border-color: rgba(6, 182, 212, 0.30);
+  color: #053b43;
+}
+
+.CalcButton--danger {
+  background: rgba(239, 68, 68, 0.14);
+  border-color: rgba(239, 68, 68, 0.28);
+  color: #5a0b0b;
+}
+
+.CalcButton--span2 {
+  grid-column: span 2;
+}
+
+.CalcHint {
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgba(17, 24, 39, 0.62);
+  text-align: center;
+}
+
+/* Responsive tweaks */
+@media (max-width: 420px) {
+  .CalcCard {
+    padding: 14px;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
+  .CalcDisplay-primary {
+    font-size: 38px;
+  }
+
+  .CalcButton {
+    padding: 13px 10px;
   }
 }
